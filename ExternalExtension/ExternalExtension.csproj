@@ -51,7 +51,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsRegistryAssistant\WindowsServiceInformation.csproj">
+    <ProjectReference Include="..\WindowsServiceInformation\WindowsServiceInformation.csproj">
       <Project>{06c03201-523c-4edd-8b27-282b1c4a3b15}</Project>
       <Name>WindowsServiceInformation</Name>
     </ProjectReference>

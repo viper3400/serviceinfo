@@ -32,10 +32,18 @@ namespace WindowsServiceInformationConsole
 
         private static void DoWork(string filter)
         {
-            IKernel kernel = new StandardKernel(new TestModule());
-            //IKernel kernel = new StandardKernel();
-            //kernel.Load("*.dll");
-
+            string externalExtension = Properties.Settings.Default.ExtensionDLL;
+            IKernel kernel;
+            if (String.IsNullOrWhiteSpace(externalExtension))
+            {
+                kernel = new StandardKernel(new TestModule());
+            }
+            else
+            {
+                kernel = new StandardKernel();
+                kernel.Load(externalExtension);
+                //TODO: handle exceptions
+            }
             var collector = kernel.Get<IServiceInformationCollector>();
 
             

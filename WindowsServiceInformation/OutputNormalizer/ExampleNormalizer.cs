@@ -20,10 +20,10 @@ namespace ch.jaxx.WindowsServiceInformation
                         switch (p.GetValue(s).GetType().Name)
                         {
                             case "List`1":
-                                List<string> temporaryList = (List<string>)p.GetValue(s);
+                                var temporaryList = (List<WindowsServiceExtraInfo>)p.GetValue(s);
                                 foreach (var line in temporaryList)
                                 {
-                                    outputList.Add(p.Name  + ": " + line);
+                                    outputList.Add(line.Key  + ": " + line.Value);
                                 }
                                 break;
                             default:

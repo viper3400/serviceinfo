@@ -12,7 +12,12 @@ namespace ch.jaxx.WindowsServiceInformation
         {
            foreach (var s in ServiceList)
            {
-               s.AdditionalInformation = new List<string>() { "1st Line: Information added with ExampleExtension", "2nd Line: Information added with ExampleExtension" };
+               s.AdditionalInformation = new List<WindowsServiceExtraInfo>()
+               { 
+                   new WindowsServiceExtraInfo() { Key = "1st Line", Value = "Information added with ExampleExtension"},
+                   new WindowsServiceExtraInfo() { Key = "2nd Line", Value = "Information added with ExampleExtension"}
+                   
+               };
            }
 
            return ServiceList;

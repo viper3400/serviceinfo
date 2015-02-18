@@ -16,7 +16,7 @@ namespace ch.jaxx.WindowsServiceInformation
         /// </summary>
         public string ServiceDisplayName { get; set; }
         /// <summary>
-        /// RegistryPath of service under the main service path in registry.
+        /// Service name.
         /// </summary>
         public string ServiceName { get; set; }
         /// <summary>
@@ -38,7 +38,7 @@ namespace ch.jaxx.WindowsServiceInformation
         /// <summary>
         /// An unmanaged string list with additional information.
         /// </summary>
-        public List<string> AdditionalInformation { get; set; }
+        public List<WindowsServiceExtraInfo> AdditionalInformation { get; set; }
        
     }
 }

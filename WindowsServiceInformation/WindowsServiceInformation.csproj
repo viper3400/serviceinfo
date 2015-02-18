@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\WindowsServiceExtraInfo.cs" />
+    <Compile Include="OutputNormalizer\IniStructureNormalizer.cs" />
     <Compile Include="Output\ConsoleOutput.cs" />
     <Compile Include="Extensions\ExampleExtension.cs" />
     <Compile Include="OutputNormalizer\ExampleNormalizer.cs" />

@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
+    /// <summary>
+    /// A normalizer to wiki style output
+    /// </summary>
     public class WikiNormalizer : IOutputNormalizer
     {
+        //<inheritdoc />
         public string[] Normalize(List<WindowsServiceInformation> ServiceInformationList)
         {
             List<string> outputList = new List<string>();

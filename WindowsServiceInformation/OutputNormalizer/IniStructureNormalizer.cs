@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
+    /// <summary>
+    /// An output normalizer with INI style output
+    /// </summary>
     public class IniStructureNormalizer : IOutputNormalizer
     {
-
+        //<inherit/>
         public string[] Normalize(List<WindowsServiceInformation> ServiceInformationList)
         {
             

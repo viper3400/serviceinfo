@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
+    /// <summary>
+    /// An example implementation of IOutputNormalizer 
+    /// </summary>
     public class ExampleNormalizer : IOutputNormalizer
     {
+        //<inherit />
         public string[] Normalize(List<WindowsServiceInformation> ServiceInformationList)
         {
             List<string> outputList = new List<string>();

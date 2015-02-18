@@ -19,7 +19,8 @@ namespace WindowsServiceInformationConsole
             }
             Bind<IServiceInformationCollector>().To<WmiServiceInformationCollector>();
             Bind<IExtension>().To<ExampleExtension>();
-            Bind<IOutputNormalizer>().To<IniStructurNormalizer>();
+            Bind<IOutputNormalizer>().To<WikiNormalizer>();
+
         }
     }
 }

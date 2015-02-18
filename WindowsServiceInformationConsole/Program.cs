@@ -32,26 +32,33 @@ namespace WindowsServiceInformationConsole
 
         private static void DoWork(string filter)
         {
+
+            var module = new TestModule();
+
             string externalExtension = Properties.Settings.Default.ExtensionDLL;
-            IKernel kernel;
+           
+            IKernel extensionKernel;
             if (String.IsNullOrWhiteSpace(externalExtension))
             {
-                kernel = new StandardKernel(new TestModule());
+                extensionKernel = new StandardKernel(module);
             }
             else
             {
-                kernel = new StandardKernel();
-                kernel.Load(externalExtension);
+                extensionKernel = new StandardKernel();
+                extensionKernel.Load(externalExtension);
                 //TODO: handle exceptions
             }
-            var collector = kernel.Get<IServiceInformationCollector>();
+
+
+            IKernel mainKernel = new StandardKernel(module);
+            var collector = mainKernel.Get<IServiceInformationCollector>();
 
             
             List<WindowsServiceInformation> services = collector.GetServiceInformation(filter);
 
             try
             {
-                var extender = kernel.Get<IExtension>();
+                var extender = extensionKernel.Get<IExtension>();
                 extender.Extend(services);
             }
             catch (ActivationException ex) 
@@ -66,13 +73,13 @@ namespace WindowsServiceInformationConsole
                 }
             }
            
+            
 
-
-            var normalizer = kernel.Get<IOutputNormalizer>();
+            var normalizer = mainKernel.Get<IOutputNormalizer>();
             
             string[] outputArray = normalizer.Normalize(services);
 
-            foreach (var output in kernel.GetAll<IOutput>())
+            foreach (var output in mainKernel.GetAll<IOutput>())
             {
                 output.WriteOutput(outputArray);
             }

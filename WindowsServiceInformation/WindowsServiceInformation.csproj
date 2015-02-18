@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Models\WindowsServiceExtraInfo.cs" />
     <Compile Include="OutputNormalizer\IniStructureNormalizer.cs" />
+    <Compile Include="OutputNormalizer\WikiNormalizer.cs" />
     <Compile Include="Output\ConsoleOutput.cs" />
     <Compile Include="Extensions\ExampleExtension.cs" />
     <Compile Include="OutputNormalizer\ExampleNormalizer.cs" />

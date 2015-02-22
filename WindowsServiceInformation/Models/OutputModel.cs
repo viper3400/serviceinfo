@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
-    public interface IOutput
+    public class OutputModel
     {
-        void WriteOutput(List<OutputModel> OutputContent);
+        public string[] Content { get; set; }
+        public string FileName { get; set; }
     }
 }

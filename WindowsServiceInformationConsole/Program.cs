@@ -77,7 +77,7 @@ namespace WindowsServiceInformationConsole
 
             var normalizer = mainKernel.Get<IOutputNormalizer>();
             
-            string[] outputArray = normalizer.Normalize(services);
+            var outputArray = normalizer.Normalize(services);
 
             foreach (var output in mainKernel.GetAll<IOutput>())
             {

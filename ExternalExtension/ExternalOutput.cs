@@ -1,15 +1,19 @@
 ﻿using ch.jaxx.WindowsServiceInformation;
 using System;
+using System.Collections.Generic;
 
 namespace ExternalExtension
 {
     class ExternalOutput : IOutput
     {
-        public void WriteOutput(string[] Content)
+        public void WriteOutput(List<OutputModel> OutputContent)
         {
-            foreach (var s in Content)
+            foreach (var o in OutputContent)
             {
-                Console.WriteLine("Ex: " + s);
+                foreach (var s in o.Content)
+                {
+                    Console.WriteLine("External: " + s);
+                }
             }
         }
     }

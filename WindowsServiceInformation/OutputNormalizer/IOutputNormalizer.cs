@@ -16,6 +16,6 @@ namespace ch.jaxx.WindowsServiceInformation
         /// </summary>
         /// <param name="ServiceInformationList">The unnormalized list of WindowsServiceInformation objects.</param>
         /// <returns>A normalized string[] ready for data output.</returns>
-        string[] Normalize(List<WindowsServiceInformation> ServiceInformationList);
+        List<OutputModel> Normalize(List<WindowsServiceInformation> ServiceInformationList);
     }
 }

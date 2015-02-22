@@ -12,11 +12,12 @@ namespace ch.jaxx.WindowsServiceInformation
     public class ExampleNormalizer : IOutputNormalizer
     {
         //<inherit />
-        public string[] Normalize(List<WindowsServiceInformation> ServiceInformationList)
+        public List<OutputModel> Normalize(List<WindowsServiceInformation> ServiceInformationList)
         {
-            List<string> outputList = new List<string>();
+            List<OutputModel> outputList = new List<OutputModel>();
             foreach (var s in ServiceInformationList)
             {
+                List<string> outputArray = new List<string>();
                 foreach (var p in s.GetType().GetProperties())
                 {
                     try
@@ -27,25 +28,30 @@ namespace ch.jaxx.WindowsServiceInformation
                                 var temporaryList = (List<WindowsServiceExtraInfo>)p.GetValue(s);
                                 foreach (var line in temporaryList)
                                 {
-                                    outputList.Add(line.Key  + ": " + line.Value);
+                                    outputArray.Add(line.Key + ": " + line.Value);
                                 }
                                 break;
                             default:
-                                outputList.Add(p.Name + ": " + p.GetValue(s).ToString());
+                                outputArray.Add(p.Name + ": " + p.GetValue(s).ToString());
                                 break;
                         }
                         
                     }
                     catch (NullReferenceException)
                     {
-                        outputList.Add(p.Name + ": No value assigned.");
+                        outputArray.Add(p.Name + ": No value assigned.");
                     }
                 }
-                outputList.Add("=====================================");
-                outputList.Add("| Normalized with ExampleNormalizer |");
-                outputList.Add("=====================================");
+                outputArray.Add("=====================================");
+                outputArray.Add("| Normalized with ExampleNormalizer |");
+                outputArray.Add("=====================================");
+
+                var outputModel = new OutputModel();
+                outputModel.FileName = s.ServiceName;
+                outputModel.Content = outputArray.ToArray();
+                outputList.Add(outputModel);
             }
-            return outputList.ToArray();
+            return outputList;
         }
     }
 }

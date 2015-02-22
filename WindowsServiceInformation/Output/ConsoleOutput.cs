@@ -8,11 +8,14 @@ namespace ch.jaxx.WindowsServiceInformation
 {
     public class ConsoleOutput : IOutput
     {
-        public void WriteOutput(string[] Content)
+        public void WriteOutput(List<OutputModel> OutputContent)
         {
-            foreach (var s in Content) 
+            foreach (var o in OutputContent) 
             {
-                Console.WriteLine(s);
+                foreach (var s in o.Content)
+                {
+                    Console.WriteLine(s);
+                }
             }
         }
     }

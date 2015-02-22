@@ -14,9 +14,12 @@ namespace ch.jaxx.WindowsServiceInformation
             _filePath = FilePath;
         }
 
-        public void WriteOutput(string[] Content)
+        public void WriteOutput(List<OutputModel> OutputContent)
         {
-            System.IO.File.WriteAllLines(_filePath, Content);
+            foreach (var o in OutputContent)
+            {
+                System.IO.File.WriteAllLines(_filePath + o.FileName + ".txt", o.Content);
+            }
         }
     }
 }

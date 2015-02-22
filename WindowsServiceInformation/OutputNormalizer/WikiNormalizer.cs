@@ -12,26 +12,33 @@ namespace ch.jaxx.WindowsServiceInformation
     public class WikiNormalizer : IOutputNormalizer
     {
         //<inheritdoc />
-        public string[] Normalize(List<WindowsServiceInformation> ServiceInformationList)
+        public List<OutputModel> Normalize(List<WindowsServiceInformation> ServiceInformationList)
         {
-            List<string> outputList = new List<string>();
+
+            List<OutputModel> outputList = new List<OutputModel>();
             foreach (var s in ServiceInformationList)
             {
-                outputList.Add(String.Format("h1. {0}", s.ServiceName));
-                outputList.Add(String.Format("|ServiceName|{0}|", s.ServiceName));
-                outputList.Add(String.Format("|ServiceState|{0}|", s.ServiceState));
-                outputList.Add(String.Format("|ServiceDisplayName|{0}|", s.ServiceDisplayName));
-                outputList.Add(String.Format("|ServiceStartupType|{0}|", s.ServiceStartupType));
-                outputList.Add(String.Format("|ExecutablePath|{0}|", s.ExecutablePath));
+                List<string> outputArray = new List<string>();
+                outputArray.Add(String.Format("h1. {0}", s.ServiceName));
+                outputArray.Add(String.Format("|ServiceName|{0}|", s.ServiceName));
+                outputArray.Add(String.Format("|ServiceState|{0}|", s.ServiceState));
+                outputArray.Add(String.Format("|ServiceDisplayName|{0}|", s.ServiceDisplayName));
+                outputArray.Add(String.Format("|ServiceStartupType|{0}|", s.ServiceStartupType));
+                outputArray.Add(String.Format("|ExecutablePath|{0}|", s.ExecutablePath));
 
                 foreach (var extraInfo in s.AdditionalInformation)
                 {
-                    outputList.Add(String.Format("|{0}|{1}|", extraInfo.Key, extraInfo.Value));
+                    outputArray.Add(String.Format("|{0}|{1}|", extraInfo.Key, extraInfo.Value));
                 }
-                outputList.Add(Environment.NewLine);
+                outputArray.Add(Environment.NewLine);
+
+                var outputModel = new OutputModel();
+                outputModel.FileName = s.ServiceName;
+                outputModel.Content = outputArray.ToArray();
+                outputList.Add(outputModel);
 
             }
-            return outputList.ToArray();
+            return outputList;
         }
     }
 }

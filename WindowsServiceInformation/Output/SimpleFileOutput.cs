@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
+    /// <summary>
+    /// Class for write a single file foreach content obect with a list.
+    /// </summary>
     public class SimpleFileOutput : IOutput
     {
         private string _filePath;

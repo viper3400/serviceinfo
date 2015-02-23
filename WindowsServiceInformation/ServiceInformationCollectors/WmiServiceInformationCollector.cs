@@ -10,15 +10,15 @@ namespace ch.jaxx.WindowsServiceInformation
 {
     public class WmiServiceInformationCollector : IServiceInformationCollector
     {
-        public List<WindowsServiceInformation> GetServiceInformation(string NameFilter = null)
+        public List<WindowsServiceInfo> GetServiceInformation(string NameFilter = null)
         {
-            List<WindowsServiceInformation> services = new List<WindowsServiceInformation>();
+            List<WindowsServiceInfo> services = new List<WindowsServiceInfo>();
             foreach (var service in ServiceController.GetServices())
             {
                 try
                 {
 
-                    WindowsServiceInformation serviceInformation = new WindowsServiceInformation();
+                    WindowsServiceInfo serviceInformation = new WindowsServiceInfo();
                     if (NameFilter == null || (NameFilter != null && service.DisplayName.ToUpper().Contains(NameFilter.ToUpper())))
                     {
                         //serviceInformation.RegistryServiceDirectory = service.ServiceName;
@@ -41,10 +41,10 @@ namespace ch.jaxx.WindowsServiceInformation
 
         }
 
-        private WindowsServiceInformation GetWmiServiceInformation(string serviceName)
+        private WindowsServiceInfo GetWmiServiceInformation(string serviceName)
         {
             
-            WindowsServiceInformation serviceInformation = new WindowsServiceInformation(); 
+            WindowsServiceInfo serviceInformation = new WindowsServiceInfo(); 
             string filter = String.Format("SELECT * FROM Win32_Service WHERE Name = '{0}'", serviceName);
 
             ManagementObjectSearcher query = new ManagementObjectSearcher(filter);

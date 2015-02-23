@@ -13,6 +13,7 @@ namespace WsiUnitTest
     public class OutputTests
     {
         private string _tempTestPath;
+        private const string CATEGORY1 = "OutputTests";
 
         [TestFixtureSetUp]
         public void Init()
@@ -29,7 +30,8 @@ namespace WsiUnitTest
         /// <summary>
         /// Simple test for the CollectionFileOutput Class
         /// </summary>
-        [TestCase]
+        [TestCase]        
+        [Category(CATEGORY1)]
         public void CollectionFileOutputTest()
         {
             string outputTestFile = _tempTestPath + @"\collectionfileoutput.txt";

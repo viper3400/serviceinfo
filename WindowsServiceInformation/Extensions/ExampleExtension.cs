@@ -8,7 +8,7 @@ namespace ch.jaxx.WindowsServiceInformation
 {
     public class ExampleExtension : IExtension
     {
-        public List<WindowsServiceInformation> Extend(List<WindowsServiceInformation> ServiceList)
+        public List<WindowsServiceInfo> Extend(List<WindowsServiceInfo> ServiceList)
         {
            foreach (var s in ServiceList)
            {

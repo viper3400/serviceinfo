@@ -9,7 +9,7 @@ namespace ch.jaxx.WindowsServiceInformation
     /// <summary>
     /// Class provides information about a windows service.
     /// </summary>
-    public class WindowsServiceInformation
+    public class WindowsServiceInfo
     {
         /// <summary>
         /// Service name as displayed in windows service manager.
@@ -35,6 +35,10 @@ namespace ch.jaxx.WindowsServiceInformation
         /// Path to service executable.
         /// </summary>
         public string ExecutablePath { get; set; }
+        /// <summary>
+        /// A list of valid configuration files for this service instance
+        /// </summary>
+        public List<string> ServiceConfigurationFiles { get; set; }
         /// <summary>
         /// An unmanaged string list with additional information.
         /// </summary>

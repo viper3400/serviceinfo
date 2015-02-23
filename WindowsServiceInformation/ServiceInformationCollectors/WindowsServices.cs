@@ -23,15 +23,15 @@ namespace ch.jaxx.WindowsServiceInformation
             serviceRootKey = serviceRootKey.OpenSubKey("services");
         }
 
-        public  List<WindowsServiceInformation> GetServiceInformation (string DisplayNameFilter = null)
+        public  List<WindowsServiceInfo> GetServiceInformation (string DisplayNameFilter = null)
         {
-            List<WindowsServiceInformation> services = new List<WindowsServiceInformation>();
+            List<WindowsServiceInfo> services = new List<WindowsServiceInfo>();
             foreach (var service in ServiceController.GetServices())
             {
                 try
                 {
  
-                    WindowsServiceInformation serviceInformation = new WindowsServiceInformation();
+                    WindowsServiceInfo serviceInformation = new WindowsServiceInfo();
                     if (DisplayNameFilter == null || (DisplayNameFilter != null && service.DisplayName.ToUpper().Contains(DisplayNameFilter.ToUpper())))
                     {
                         serviceInformation.ServiceName = service.ServiceName;

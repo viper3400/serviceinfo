@@ -12,7 +12,7 @@ namespace ch.jaxx.WindowsServiceInformation
     public class WikiNormalizer : IOutputNormalizer
     {
         //<inheritdoc />
-        public List<OutputModel> Normalize(List<WindowsServiceInformation> ServiceInformationList)
+        public List<OutputModel> Normalize(List<WindowsServiceInfo> ServiceInformationList)
         {
 
             List<OutputModel> outputList = new List<OutputModel>();

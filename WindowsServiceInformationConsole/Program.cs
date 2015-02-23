@@ -53,7 +53,7 @@ namespace WindowsServiceInformationConsole
             // Collect all service information
             IKernel mainKernel = new StandardKernel(module);
             var collector = mainKernel.Get<IServiceInformationCollector>();          
-            List<WindowsServiceInformation> services = collector.GetServiceInformation(filter);
+            List<WindowsServiceInfo> services = collector.GetServiceInformation(filter);
 
             // Try to extend the service information
             try

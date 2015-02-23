@@ -8,6 +8,6 @@ namespace ch.jaxx.WindowsServiceInformation
 {
     public interface IServiceInformationCollector
     {
-        List<WindowsServiceInformation> GetServiceInformation(string NameFilter = null);
+        List<WindowsServiceInfo> GetServiceInformation(string NameFilter = null);
     }
 }

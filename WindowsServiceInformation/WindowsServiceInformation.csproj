@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationFileHandler\ConfigFileSaver.cs" />
+    <Compile Include="ConfigurationFileHandler\IConfigFileHandler.cs" />
     <Compile Include="Models\OutputModel.cs" />
     <Compile Include="Models\WindowsServiceExtraInfo.cs" />
     <Compile Include="OutputNormalizer\IniStructureNormalizer.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Extensions\IExtension.cs" />
     <Compile Include="Output\IOutput.cs" />
     <Compile Include="OutputNormalizer\IOutputNormalizer.cs" />
+    <Compile Include="RuntimeConstants.cs" />
     <Compile Include="ServiceInformationCollectors\IServiceInformationCollector.cs" />
     <Compile Include="Output\SimpleFileOutput.cs" />
     <Compile Include="Models\WindowsServiceInformation.cs" />

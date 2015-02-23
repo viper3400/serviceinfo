@@ -8,6 +8,6 @@ namespace ch.jaxx.WindowsServiceInformation
 {
     public interface IExtension
     {
-        List<WindowsServiceInformation> Extend(List<WindowsServiceInformation> ServiceList);
+        List<WindowsServiceInfo> Extend(List<WindowsServiceInfo> ServiceList);
     }
 }

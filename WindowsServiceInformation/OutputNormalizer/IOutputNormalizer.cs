@@ -12,10 +12,10 @@ namespace ch.jaxx.WindowsServiceInformation
     public interface IOutputNormalizer
     {
         /// <summary>
-        /// Normalizes a given List with WindowsServiceInformation object to a string array in preparation for a normalized data output.
+        /// Normalizes a given List with WindowsServiceInfo object to a string array in preparation for a normalized data output.
         /// </summary>
-        /// <param name="ServiceInformationList">The unnormalized list of WindowsServiceInformation objects.</param>
+        /// <param name="ServiceInformationList">The unnormalized list of WindowsServiceInfo objects.</param>
         /// <returns>A normalized string[] ready for data output.</returns>
-        List<OutputModel> Normalize(List<WindowsServiceInformation> ServiceInformationList);
+        List<OutputModel> Normalize(List<WindowsServiceInfo> ServiceInformationList);
     }
 }

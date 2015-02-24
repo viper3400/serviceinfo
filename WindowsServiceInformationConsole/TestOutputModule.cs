@@ -8,19 +8,23 @@ using ch.jaxx.WindowsServiceInformation;
 
 namespace WindowsServiceInformationConsole
 {
-    class TestModule : NinjectModule
+    class TestOutputModule : NinjectModule
     {
         public override void Load()
         {
-            Bind<IOutput>().To<ConsoleOutput>();
-            if (!String.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
-            {
-                Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
-            }
+            
             Bind<IServiceInformationCollector>().To<WmiServiceInformationCollector>();
             Bind<IExtension>().To<ExampleExtension>();
-            Bind<IOutputNormalizer>().To<WikiNormalizer>();
-
+            
+            Bind<IOutputNormalizer>().To<IniStructureNormalizer>();
+          
+            Bind<IOutput>().To<ConsoleOutput>();
+            
+            if (!String.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
+            {
+                Bind<IConfigFileHandler>().To<ConfigFileSaver>().WithConstructorArgument("ConfigurationOutputPath", RuntimeConstants.OutputFilePath);
+                Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
+            }
         }
     }
 }

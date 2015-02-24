@@ -34,10 +34,14 @@ namespace ch.jaxx.WindowsServiceInformation
         {
             foreach (var service in Services)
             {
-                foreach (var configFile in service.ServiceConfigurationFiles)
+                // check if there are any configuration files
+                if (service.ServiceConfigurationFiles != null)
                 {
-                    Directory.CreateDirectory(_configOutputPath + @"\" + service.ServiceName);
-                    File.Copy(configFile, _configOutputPath + @"\" + service.ServiceName + @"\" + Path.GetFileName(configFile));
+                    foreach (var configFile in service.ServiceConfigurationFiles)
+                    {
+                        Directory.CreateDirectory(_configOutputPath + @"\" + service.ServiceName);
+                        File.Copy(configFile, _configOutputPath + @"\" + service.ServiceName + @"\" + Path.GetFileName(configFile));
+                    }
                 }
             }
         }

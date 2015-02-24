@@ -8,13 +8,19 @@ using CommandLine.Text;
 
 namespace WindowsServiceInformationConsole
 {
+    internal enum ModuleType { INI, WIKI, TEST}
+
     class WssOptions
-    {
-        [Option('s',"servicefilter",Required=false, DefaultValue=null, HelpText="filter services to this name or name part")]
+    {       
+
+        [Option('s',"servicefilter",Required=false, DefaultValue=null, HelpText="filter for service name or name part")]
         public string ServiceFilter { get; set; }
 
         [Option('o',"outputfile",Required=false,HelpText="output file path")]
-        public string OutoutFile { get; set; }
+        public string OutputFile { get; set; }
+
+        [Option("type", Required=true, HelpText="output type")]
+        public ModuleType ModuleType { get; set; }
 
         [HelpOption]
         public string GetUsage()

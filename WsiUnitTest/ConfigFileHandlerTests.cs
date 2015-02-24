@@ -37,6 +37,9 @@ namespace WsiUnitTest
             Directory.Delete(_tempTestPath, true);
         }
 
+        /// <summary>
+        /// Test case for ConfigFileSaver class
+        /// </summary>
         [TestCase]
         [Category(CATEGORY1)]
         public void ConfigSaverTest()
@@ -49,12 +52,18 @@ namespace WsiUnitTest
                 Assert.Inconclusive("Missing service on system to execute testcase");
             }
 
+            // test the case if there is no configuration available, this should be possible every time.
+
+            ConfigFileSaver saver = new ConfigFileSaver(_tempTestPath);
+            saver.HandleConfigurationFiles(result);
+
+            // now check with available config information (the dedicated use case)
             result.FirstOrDefault().ServiceConfigurationFiles = new List<string>()
             {
                 _tempFileOne, _tempFileTwo
             };
 
-            ConfigFileSaver saver = new ConfigFileSaver(_tempTestPath);
+
             saver.HandleConfigurationFiles(result);
 
             bool expected = true;

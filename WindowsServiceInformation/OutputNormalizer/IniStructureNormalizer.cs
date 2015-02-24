@@ -28,9 +28,13 @@ namespace ch.jaxx.WindowsServiceInformation
                 outputArray.Add(String.Format("ExecutablePath={0}", s.ExecutablePath));
                 outputArray.Add(String.Format("FileVersion={0}", s.ExecutableFileVersion));
 
-                foreach (var extraInfo in s.AdditionalInformation)
+                // check if there is any addional information at all
+                if (s.AdditionalInformation != null)
                 {
-                    outputArray.Add(String.Format("{0}={1}", extraInfo.Key, extraInfo.Value));
+                    foreach (var extraInfo in s.AdditionalInformation)
+                    {
+                        outputArray.Add(String.Format("{0}={1}", extraInfo.Key, extraInfo.Value));
+                    }
                 }
                 outputArray.Add(Environment.NewLine);
 

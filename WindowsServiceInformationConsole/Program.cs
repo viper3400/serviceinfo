@@ -18,8 +18,8 @@ namespace WindowsServiceInformationConsole
             var wssOptions = new WssOptions();
             if (CommandLine.Parser.Default.ParseArguments(args,wssOptions))
             {
-                if (!String.IsNullOrWhiteSpace(wssOptions.OutoutFile)) RuntimeConstants.OutputFilePath = wssOptions.OutoutFile;
-                DoWork(wssOptions.ServiceFilter);
+                if (!String.IsNullOrWhiteSpace(wssOptions.OutputFile)) RuntimeConstants.OutputFilePath = wssOptions.OutputFile;
+                DoWork(wssOptions.ServiceFilter, wssOptions.ModuleType);
             }
 
 
@@ -30,16 +30,33 @@ namespace WindowsServiceInformationConsole
             Console.ReadKey();
         }
 
-        private static void DoWork(string filter)
+        private static void DoWork(string filter, ModuleType mType)
         {
+            Ninject.Modules.INinjectModule module;
 
-            var module = new TestModule();
+            switch (mType)
+            {
+                default:
+                case ModuleType.WIKI:
+                    module = new WikiOutputModule();
+                    break;
+                case ModuleType.INI:
+                    module = new IniOutputModule();
+                    break;
+                case ModuleType.TEST:
+                    module = new TestOutputModule();
+                    break;
+            }
 
+            var ninjectSettings = new NinjectSettings();
+            ninjectSettings.AllowNullInjection = true;
+           
             string externalExtension = Properties.Settings.Default.ExtensionDLL;
            
             IKernel extensionKernel;
             if (String.IsNullOrWhiteSpace(externalExtension))
             {
+
                 extensionKernel = new StandardKernel(module);
             }
             else
@@ -52,7 +69,7 @@ namespace WindowsServiceInformationConsole
 
             // Collect all service information
             Console.WriteLine("Acquiring service information ...");
-            IKernel mainKernel = new StandardKernel(module);
+            IKernel mainKernel = new StandardKernel(ninjectSettings, module);
             var collector = mainKernel.Get<IServiceInformationCollector>();          
             List<WindowsServiceInfo> services = collector.GetServiceInformation(filter);
 
@@ -76,6 +93,10 @@ namespace WindowsServiceInformationConsole
             }
            
             
+            // Handle possible config files
+            var configerHandler = mainKernel.Get<IConfigFileHandler>();
+            configerHandler.HandleConfigurationFiles(services);
+
             // Normalize the service information
             Console.WriteLine("Normalize output ...");
             var normalizer = mainKernel.Get<IOutputNormalizer>();            

@@ -25,6 +25,7 @@ namespace ch.jaxx.WindowsServiceInformation
                 outputArray.Add(String.Format("|ServiceDisplayName|{0}|", s.ServiceDisplayName));
                 outputArray.Add(String.Format("|ServiceStartupType|{0}|", s.ServiceStartupType));
                 outputArray.Add(String.Format("|ExecutablePath|{0}|", s.ExecutablePath));
+                outputArray.Add(String.Format("|FileVersion|{0}|", s.ExecutableFileVersion));
 
                 foreach (var extraInfo in s.AdditionalInformation)
                 {

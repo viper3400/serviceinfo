@@ -40,6 +40,10 @@ namespace ch.jaxx.WindowsServiceInformation
         /// </summary>
         public List<string> ServiceConfigurationFiles { get; set; }
         /// <summary>
+        /// FileVersion of the service executable.
+        /// </summary>
+        public string ExecutableFileVersion { get; set; }
+        /// <summary>
         /// An unmanaged string list with additional information.
         /// </summary>
         public List<WindowsServiceExtraInfo> AdditionalInformation { get; set; }

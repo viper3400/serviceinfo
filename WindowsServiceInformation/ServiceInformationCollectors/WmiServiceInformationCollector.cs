@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.ServiceProcess;
@@ -21,14 +22,7 @@ namespace ch.jaxx.WindowsServiceInformation
                     WindowsServiceInfo serviceInformation = new WindowsServiceInfo();
                     if (NameFilter == null || (NameFilter != null && service.DisplayName.ToUpper().Contains(NameFilter.ToUpper())))
                     {
-                        //serviceInformation.RegistryServiceDirectory = service.ServiceName;
-                        //serviceInformation.ServiceDisplayName = service.DisplayName;
-                        //serviceInformation.ServiceState = service.Status.ToString();
-
-
-                        //serviceInformation.ServiceStartupType = GetServiceStartMode(service.ServiceName);
-                        //serviceInformation.ServiceUser = GetServiceUser(service.ServiceName);
-                        services.Add(GetWmiServiceInformation(service.ServiceName));
+                        services.Add(GetWmiServiceInformation(service.ServiceName));                        
                     }
 
                 }
@@ -76,6 +70,8 @@ namespace ch.jaxx.WindowsServiceInformation
                         serviceInformation.ServiceStartupType = service.GetPropertyValue("StartMode").ToString();
                         serviceInformation.ServiceState = service.GetPropertyValue("State").ToString();
                         serviceInformation.ServiceUser = service.GetPropertyValue("StartName").ToString();
+
+                        serviceInformation.ExecutableFileVersion = FileVersionInfo.GetVersionInfo(serviceInformation.ExecutablePath).FileVersion;
 
                         return serviceInformation;
                     }

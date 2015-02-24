@@ -51,11 +51,13 @@ namespace WindowsServiceInformationConsole
 
 
             // Collect all service information
+            Console.WriteLine("Acquiring service information ...");
             IKernel mainKernel = new StandardKernel(module);
             var collector = mainKernel.Get<IServiceInformationCollector>();          
             List<WindowsServiceInfo> services = collector.GetServiceInformation(filter);
 
             // Try to extend the service information
+            Console.WriteLine("Try to extend service information ...");
             try
             {
                 var extender = extensionKernel.Get<IExtension>();
@@ -75,10 +77,12 @@ namespace WindowsServiceInformationConsole
            
             
             // Normalize the service information
+            Console.WriteLine("Normalize output ...");
             var normalizer = mainKernel.Get<IOutputNormalizer>();            
             var outputArray = normalizer.Normalize(services);
 
             // Output the service information
+            Console.WriteLine("Output ...");
             foreach (var output in mainKernel.GetAll<IOutput>())
             {
                 output.WriteOutput(outputArray);

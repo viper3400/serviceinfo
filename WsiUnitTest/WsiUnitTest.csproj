@@ -45,7 +45,6 @@
     <Compile Include="ConfigFileHandlerTests.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowsServiceInformationTestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

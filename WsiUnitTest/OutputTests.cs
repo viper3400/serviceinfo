@@ -18,10 +18,11 @@ namespace WsiUnitTest
         [TestFixtureSetUp]
         public void Init()
         {
-            _tempTestPath = Environment.SpecialFolder.LocalApplicationData + @"\WsiUnitTest";
+            _tempTestPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\WsiUnitTest";
             Directory.CreateDirectory(_tempTestPath);
         }
 
+        [TestFixtureTearDown]
         public void Dispose()
         {
             Directory.Delete(_tempTestPath, true);

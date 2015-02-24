@@ -36,7 +36,8 @@ namespace ch.jaxx.WindowsServiceInformation
             {
                 foreach (var configFile in service.ServiceConfigurationFiles)
                 {
-                    File.Copy(configFile, _configOutputPath + service.ServiceName + @"\" + Path.GetFileName(configFile));
+                    Directory.CreateDirectory(_configOutputPath + @"\" + service.ServiceName);
+                    File.Copy(configFile, _configOutputPath + @"\" + service.ServiceName + @"\" + Path.GetFileName(configFile));
                 }
             }
         }

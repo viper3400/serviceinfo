@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using ch.jaxx.WindowsServiceInformation;
 
 namespace WindowsServiceInformationConsole
@@ -13,7 +13,7 @@ namespace WindowsServiceInformationConsole
         public override void Load()
         {
             Bind<IOutput>().To<ConsoleOutput>();
-            if (!String.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
+            if (!Net35Support.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
             {
                 Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
             }

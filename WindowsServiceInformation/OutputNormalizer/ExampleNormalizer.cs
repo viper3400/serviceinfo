@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ch.jaxx.WindowsServiceInformation
 {
@@ -22,19 +22,21 @@ namespace ch.jaxx.WindowsServiceInformation
                 {
                     try
                     {
-                        switch (p.GetValue(s).GetType().Name)
-                        {
-                            case "List`1":
-                                var temporaryList = (List<WindowsServiceExtraInfo>)p.GetValue(s);
-                                foreach (var line in temporaryList)
-                                {
-                                    outputArray.Add(line.Key + ": " + line.Value);
-                                }
-                                break;
-                            default:
-                                outputArray.Add(p.Name + ": " + p.GetValue(s).ToString());
-                                break;
-                        }
+                        // p.GetValue is not available in Net 3.5
+                        // TODO: Implement workaroudn im neccessary 
+                        //switch (p.GetValue(s).GetType().Name)
+                        //{
+                        //    case "List`1":
+                        //        var temporaryList = (List<WindowsServiceExtraInfo>)p.GetValue(s);
+                        //        foreach (var line in temporaryList)
+                        //        {
+                        //            outputArray.Add(line.Key + ": " + line.Value);
+                        //        }
+                        //        break;
+                        //    default:
+                        //        outputArray.Add(p.Name + ": " + p.GetValue(s).ToString());
+                        //        break;
+                        //}
                         
                     }
                     catch (NullReferenceException)

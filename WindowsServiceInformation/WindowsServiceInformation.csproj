@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ch.jaxx.WindowsServiceInformation</RootNamespace>
     <AssemblyName>WindowsServiceInformation</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>False</NoWin32Manifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -17,6 +17,7 @@
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +63,7 @@
     <Compile Include="ConfigurationFileHandler\IConfigFileHandler.cs" />
     <Compile Include="Models\OutputModel.cs" />
     <Compile Include="Models\WindowsServiceExtraInfo.cs" />
+    <Compile Include="Net35Support.cs" />
     <Compile Include="OutputNormalizer\IniStructureNormalizer.cs" />
     <Compile Include="OutputNormalizer\WikiNormalizer.cs" />
     <Compile Include="Output\CollectionFileOutput.cs" />

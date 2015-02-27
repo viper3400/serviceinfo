@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using ch.jaxx.WindowsServiceInformation;
 using System.ServiceProcess;
 using Ninject;
@@ -18,7 +18,7 @@ namespace WindowsServiceInformationConsole
             var wssOptions = new WssOptions();
             if (CommandLine.Parser.Default.ParseArguments(args,wssOptions))
             {
-                if (!String.IsNullOrWhiteSpace(wssOptions.OutputFile)) RuntimeConstants.OutputFilePath = wssOptions.OutputFile;
+                if (!Net35Support.IsNullOrWhiteSpace(wssOptions.OutputFile)) RuntimeConstants.OutputFilePath = wssOptions.OutputFile;
                 DoWork(wssOptions.ServiceFilter, wssOptions.ModuleType);
             }
 
@@ -54,7 +54,7 @@ namespace WindowsServiceInformationConsole
             string externalExtension = Properties.Settings.Default.ExtensionDLL;
            
             IKernel extensionKernel;
-            if (String.IsNullOrWhiteSpace(externalExtension))
+            if (Net35Support.IsNullOrWhiteSpace(externalExtension))
             {
 
                 extensionKernel = new StandardKernel(module);

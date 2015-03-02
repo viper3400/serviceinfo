@@ -47,9 +47,6 @@ namespace WindowsServiceInformationConsole
                     module = new TestOutputModule();
                     break;
             }
-
-            var ninjectSettings = new NinjectSettings();
-            ninjectSettings.AllowNullInjection = true;
            
             string externalExtension = Properties.Settings.Default.ExtensionDLL;
            
@@ -69,7 +66,7 @@ namespace WindowsServiceInformationConsole
 
             // Collect all service information
             Console.WriteLine("Acquiring service information ...");
-            IKernel mainKernel = new StandardKernel(ninjectSettings, module);
+            IKernel mainKernel = new StandardKernel(module);
             var collector = mainKernel.Get<IServiceInformationCollector>();          
             List<WindowsServiceInfo> services = collector.GetServiceInformation(filter);
 
@@ -79,6 +76,10 @@ namespace WindowsServiceInformationConsole
             {
                 var extender = extensionKernel.Get<IExtension>();
                 extender.Extend(services);
+
+                // Handle possible config files
+                var configerHandler = mainKernel.Get<IConfigFileHandler>();
+                configerHandler.HandleConfigurationFiles(services);
             }
             catch (ActivationException ex) 
             {                
@@ -91,11 +92,6 @@ namespace WindowsServiceInformationConsole
                     throw ex;
                 }
             }
-           
-            
-            // Handle possible config files
-            var configerHandler = mainKernel.Get<IConfigFileHandler>();
-            configerHandler.HandleConfigurationFiles(services);
 
             // Normalize the service information
             Console.WriteLine("Normalize output ...");

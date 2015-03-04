@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceInformation", "WindowsServiceInformation\WindowsServiceInformation.csproj", "{06C03201-523C-4EDD-8B27-282B1C4A3B15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceInformationConsole", "WindowsServiceInformationConsole\WindowsServiceInformationConsole.csproj", "{8A1AAAF7-15C4-47B9-845E-9E16A0445AC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1208C3AF-0C32-493E-8149-9C7CBAC501B2} = {1208C3AF-0C32-493E-8149-9C7CBAC501B2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalExtension", "ExternalExtension\ExternalExtension.csproj", "{1208C3AF-0C32-493E-8149-9C7CBAC501B2}"
 EndProject

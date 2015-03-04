@@ -85,8 +85,9 @@ namespace WindowsServiceInformationConsole
             {                
                 /* probably not bound */ 
                 string source = "Ninject";
-                string message = "Error activating IExtension\r\nNo matching bindings are available, and the type is not self-bindable.";
-                if (ex.Source != source || !ex.Message.Contains(message))
+                string messageIExtension = "Error activating IExtension\r\nNo matching bindings are available, and the type is not self-bindable.";
+                string messageIConfigFileHandler = "Error activating IConfigFileHandler\r\nNo matching bindings are available, and the type is not self-bindable.";
+                if (ex.Source != source && (!ex.Message.Contains(messageIExtension) || !ex.Message.Contains(messageIConfigFileHandler)))
                 {
                     // throw any other excpetion
                     throw ex;

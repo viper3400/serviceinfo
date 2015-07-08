@@ -5,7 +5,7 @@ using System.Linq;
 using System.Management;
 using System.ServiceProcess;
 using System.Text;
-
+using libjfunx.logging;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
@@ -13,6 +13,7 @@ namespace ch.jaxx.WindowsServiceInformation
     {
         public List<WindowsServiceInfo> GetServiceInformation(string NameFilter = null)
         {
+            Logger.Log(LogEintragTyp.Debug, "Aquire service information.");
             List<WindowsServiceInfo> services = new List<WindowsServiceInfo>();
             foreach (var service in ServiceController.GetServices())
             {

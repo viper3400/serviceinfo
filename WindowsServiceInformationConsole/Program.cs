@@ -7,6 +7,8 @@ using ch.jaxx.WindowsServiceInformation;
 using System.ServiceProcess;
 using Ninject;
 
+using libjfunx.logging;
+
 
 namespace WindowsServiceInformationConsole
 {
@@ -14,7 +16,8 @@ namespace WindowsServiceInformationConsole
     {
         static void Main(string[] args)
         {
-           
+            Logger.SetLogger(new ConsoleLogger());
+
             var wssOptions = new WssOptions();
             if (CommandLine.Parser.Default.ParseArguments(args,wssOptions))
             {

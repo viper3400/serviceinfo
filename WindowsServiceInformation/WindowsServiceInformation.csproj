@@ -70,6 +70,7 @@
     <Compile Include="Net35Support.cs" />
     <Compile Include="OutputNormalizer\IniStructureNormalizer.cs" />
     <Compile Include="OutputNormalizer\WikiNormalizer.cs" />
+    <Compile Include="OutputNormalizer\XmlOutputNormalizer.cs" />
     <Compile Include="Output\CollectionFileOutput.cs" />
     <Compile Include="Output\ConsoleOutput.cs" />
     <Compile Include="Extensions\ExampleExtension.cs" />

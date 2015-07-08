@@ -8,7 +8,7 @@ using CommandLine.Text;
 
 namespace WindowsServiceInformationConsole
 {
-    internal enum ModuleType { INI, WIKI, TEST}
+    internal enum ModuleType { INI, WIKI, XML, TEST}
 
     class WssOptions
     {       

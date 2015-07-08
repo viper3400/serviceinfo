@@ -49,6 +49,10 @@ namespace WindowsServiceInformationConsole
                 case ModuleType.TEST:
                     module = new TestOutputModule();
                     break;
+                case ModuleType.XML:
+                    module = new XmlOutputModule();
+                    break;
+
             }
            
             string externalExtension = Properties.Settings.Default.ExtensionDLL;

@@ -100,6 +100,7 @@
     <Compile Include="RuntimeConstants.cs" />
     <Compile Include="WikiOutputModule.cs" />
     <Compile Include="WssOptions.cs" />
+    <Compile Include="XmlOutputModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

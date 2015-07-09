@@ -15,7 +15,8 @@ namespace WindowsServiceInformationConsole
             Bind<IOutput>().To<ConsoleOutput>();
             if (!Net35Support.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
             {
-                Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
+                //Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
+                Bind<IOutput>().To<CollectionFileOutput>().WithConstructorArgument("OutputFile", RuntimeConstants.OutputFilePath);
             }
             Bind<IServiceInformationCollector>().To<WmiServiceInformationCollector>();
             Bind<IOutputNormalizer>().To<XmlOutputNormalizer>();

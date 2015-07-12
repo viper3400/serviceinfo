@@ -53,6 +53,8 @@ namespace ch.jaxx.WindowsServiceInformation
 
                     foreach (ManagementObject service in services)
                     {
+                        Logger.Log(LogEintragTyp.Debug, "Getting service information for service " + service.GetPropertyValue("Name").ToString());
+
                         //inParams["Name"] = svcName;
                         //inParams["DisplayName"] = svcDispName;
                         //inParams["PathName"] = svcPath;
@@ -71,6 +73,12 @@ namespace ch.jaxx.WindowsServiceInformation
                         serviceInformation.ServiceStartupType = service.GetPropertyValue("StartMode").ToString();
                         serviceInformation.ServiceState = service.GetPropertyValue("State").ToString();
                         serviceInformation.ServiceUser = service.GetPropertyValue("StartName").ToString();
+
+                        
+
+                        serviceInformation.ServiceInfoTimeStamp = DateTime.Now.ToString();
+                        serviceInformation.ServiceHostName = Environment.MachineName;
+                        serviceInformation.ServiceHostOsVersion = Environment.OSVersion.VersionString;
 
                         serviceInformation.ExecutableFileVersion = FileVersionInfo.GetVersionInfo(serviceInformation.ExecutablePath).FileVersion;
 

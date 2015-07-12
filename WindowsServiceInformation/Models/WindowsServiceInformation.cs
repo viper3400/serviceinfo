@@ -44,6 +44,18 @@ namespace ch.jaxx.WindowsServiceInformation
         /// </summary>
         public string ExecutableFileVersion { get; set; }
         /// <summary>
+        /// The name of service host machine
+        /// </summary>
+        public string ServiceHostName { get; set; }
+        /// <summary>
+        /// The os version of service host machines
+        /// </summary>
+        public string ServiceHostOsVersion { get; set; }
+        /// <summary>
+        /// The timestamp of the service information object
+        /// </summary>
+        public string ServiceInfoTimeStamp { get; set; }
+        /// <summary>
         /// An unmanaged string list with additional information.
         /// </summary>
         public List<WindowsServiceExtraInfo> AdditionalInformation { get; set; }

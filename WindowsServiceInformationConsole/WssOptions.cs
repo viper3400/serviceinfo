@@ -8,25 +8,39 @@ using CommandLine.Text;
 
 namespace WindowsServiceInformationConsole
 {
-    internal enum ModuleType { INI, WIKI, XML, TEST}
-
+   
     class WssOptions
-    {       
+    {
+        public WssOptions()
+        {
+            XmlVerb = new XmlModuleOptions();
+        }
 
-        [Option('s',"servicefilter",Required=false, DefaultValue=null, HelpText="filter for service name or name part")]
-        public string ServiceFilter { get; set; }
+        [VerbOption("xml", HelpText = "Run WSI in xml output mode.")]
+        public XmlModuleOptions XmlVerb { get; set; }
 
-        [Option('o',"outputfile",Required=false,HelpText="output file path")]
-        public string OutputFile { get; set; }
+        [VerbOption("ini", HelpText = "Run WSI in ini output mode.")]
+        public XmlModuleOptions IniVerb { get; set; }
 
-        [Option("type", Required=true, HelpText="output type")]
-        public ModuleType ModuleType { get; set; }
+        [VerbOption("wiki", HelpText = "Run WSI in wiki output mode.")]
+        public XmlModuleOptions WikiVerb { get; set; }
+
+        [VerbOption("test", HelpText = "Run WSI in test output mode.")]
+        public XmlModuleOptions TestVerb { get; set; }
+     
 
         [HelpOption]
         public string GetUsage()
         {           
             return HelpText.AutoBuild(this,
               (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
+        }
+
+        // Remainder omitted
+        [HelpVerbOption]
+        public string GetUsage(string verb)
+        {
+            return HelpText.AutoBuild(this, verb);
         }
     }
 }

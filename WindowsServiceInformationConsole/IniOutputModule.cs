@@ -21,7 +21,7 @@ namespace WindowsServiceInformationConsole
             
             if (!Net35Support.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
             {
-                Bind<IConfigFileHandler>().To<ConfigFileSaver>().WithConstructorArgument("ConfigurationOutputPath", RuntimeConstants.OutputFilePath);
+                Bind<IConfigFileHandler>().To<ConfigFileSaver>().WithConstructorArgument("ConfigurationOutputPath", RuntimeConstants.ConfigOutputPath);
                 Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
             }
         }

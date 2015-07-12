@@ -12,10 +12,10 @@ namespace WindowsServiceInformationConsole
     {
         public override void Load()
         {
-            Bind<IOutput>().To<ConsoleOutput>();
+            //Bind<IOutput>().To<ConsoleOutput>();
             if (!Net35Support.IsNullOrWhiteSpace(RuntimeConstants.OutputFilePath))
             {
-                //Bind<IOutput>().To<SimpleFileOutput>().WithConstructorArgument("FilePath", RuntimeConstants.OutputFilePath);
+                Bind<IConfigFileHandler>().To<ConfigFileSaver>().WithConstructorArgument("ConfigurationOutputPath", RuntimeConstants.ConfigOutputPath);
                 Bind<IOutput>().To<CollectionFileOutput>().WithConstructorArgument("OutputFile", RuntimeConstants.OutputFilePath);
             }
             Bind<IServiceInformationCollector>().To<WmiServiceInformationCollector>();

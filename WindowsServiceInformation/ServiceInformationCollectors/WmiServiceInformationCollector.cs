@@ -5,15 +5,18 @@ using System.Linq;
 using System.Management;
 using System.ServiceProcess;
 using System.Text;
-using libjfunx.logging;
+using log4net;
+using System.Reflection;
 
 namespace ch.jaxx.WindowsServiceInformation
 {
     public class WmiServiceInformationCollector : IServiceInformationCollector
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
+
         public List<WindowsServiceInfo> GetServiceInformation(string NameFilter = null)
         {
-            Logger.Log(LogEintragTyp.Debug, "Aquire service information.");
+            Log.Info("Aquire service information.");
             List<WindowsServiceInfo> services = new List<WindowsServiceInfo>();
             foreach (var service in ServiceController.GetServices())
             {
@@ -53,7 +56,7 @@ namespace ch.jaxx.WindowsServiceInformation
 
                     foreach (ManagementObject service in services)
                     {
-                        Logger.Log(LogEintragTyp.Debug, "Getting service information for service " + service.GetPropertyValue("Name").ToString());
+                        Log.Info( "Getting service information for service " + service.GetPropertyValue("Name").ToString());
 
                         //inParams["Name"] = svcName;
                         //inParams["DisplayName"] = svcDispName;

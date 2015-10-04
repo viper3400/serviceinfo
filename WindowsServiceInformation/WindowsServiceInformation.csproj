@@ -48,8 +48,8 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="libjfunx, Version=3.0.0.27708, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ch.jaxx.libjfunx.dll.3.0.0\lib\libjfunx.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

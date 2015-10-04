@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using libjfunx.logging;
+using System.Reflection;
+using log4net;
+
 
 namespace ch.jaxx.WindowsServiceInformation
 {
@@ -12,6 +14,8 @@ namespace ch.jaxx.WindowsServiceInformation
     /// </summary>
     public class ConfigFileSaver : IConfigFileHandler
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
+
         /// <summary>
         /// Constructor for this class. The output path had to be provided.
         /// </summary>
@@ -19,8 +23,7 @@ namespace ch.jaxx.WindowsServiceInformation
         public ConfigFileSaver(string ConfigurationOutputPath)
         {
             _configOutputPath = ConfigurationOutputPath;
-            Logger.Log(LogEintragTyp.Hinweis, "Initialized ConfigFileSaver with target directory: " + _configOutputPath);
-            
+            Log.Info("Initialized ConfigFileSaver with target directory: " + _configOutputPath);
         }
 
 
@@ -36,13 +39,13 @@ namespace ch.jaxx.WindowsServiceInformation
         {           
             foreach (var service in Services)
             {
-                Logger.Log(LogEintragTyp.Debug, "Handle configuration files for service: " + service.ServiceName);
+                Log.Info( "Handle configuration files for service: " + service.ServiceName);
                 // check if there are any configuration files
                 if (service.ServiceConfigurationFiles != null)
                 {                   
                     foreach (var configFile in service.ServiceConfigurationFiles)
                     {
-                        Logger.Log(LogEintragTyp.Debug, "Handle configuration file: " + configFile);
+                        Log.Info( "Handle configuration file: " + configFile);
                         try
                         {
                             Directory.CreateDirectory(_configOutputPath + @"\" + service.ServiceName);
@@ -50,8 +53,8 @@ namespace ch.jaxx.WindowsServiceInformation
                         }
                         catch (IOException ex)
                         {
-                            Logger.Log(LogEintragTyp.Fehler, "Not able to save config file.");
-                            Logger.Log(LogEintragTyp.Fehler, ex.Message);
+                            Log.Error("Not able to save config file.");
+                            Log.Error(ex.Message);
                         }
                     }
                 }

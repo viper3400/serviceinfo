@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 using ch.jaxx.WindowsServiceInformation;
 using System.ServiceProcess;
 using Ninject;
 
-using libjfunx.logging;
-using libjfunx.operating;
+
+
+using log4net;
+using log4net.Config;
 
 namespace WindowsServiceInformationConsole
 {
     class Program
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
+
         static void Main(string[] args)
-        {
-            Logger.SetLogger(new ConsoleLogger());
+        {            
+            XmlConfigurator.Configure(new System.IO.FileInfo("log4net.xml"));
 
-
+            Log.Info("Application is starting");
             string invokedVerb = null;
             object invokedVerbInstance = null;
 
@@ -44,7 +49,8 @@ namespace WindowsServiceInformationConsole
             // Check if config save has been trigger from command line 
             if (!Net35Support.IsNullOrWhiteSpace(commonOptions.ConfigOutputPath))
             {
-                RuntimeConstants.ConfigOutputPath = FileOperation.EnsureTrailingBackslash(commonOptions.ConfigOutputPath);
+                //EnsureTrailingBackslash
+                RuntimeConstants.ConfigOutputPath = commonOptions.ConfigOutputPath.TrimEnd('\\') + @"\"; ;
                 RuntimeConstants.IsConfigOutputEnabled = true;
             }
             else RuntimeConstants.IsConfigOutputEnabled = false;
@@ -95,14 +101,14 @@ namespace WindowsServiceInformationConsole
             }
 
 
-            // Collect all service information
-            Logger.Log(LogEintragTyp.Status,"Acquiring service information ...");
+            // Collect all service information            
+            Log.Info("Acquiring service information ...");
             IKernel mainKernel = new StandardKernel(module);
             var collector = mainKernel.Get<IServiceInformationCollector>();          
             List<WindowsServiceInfo> services = collector.GetServiceInformation(RuntimeConstants.ServiceFilter);
 
             // Try to extend the service information
-            Logger.Log(LogEintragTyp.Status,"Try to extend service information ...");
+            Log.Info("Try to extend service information ...");
             try
             {
                 var extender = extensionKernel.Get<IExtension>();
@@ -114,7 +120,7 @@ namespace WindowsServiceInformationConsole
             }
             catch (ActivationException ex) 
             {
-                Logger.Log(LogEintragTyp.Hinweis, "Not possible to extend service information: Extension not bound.");
+                Log.Info("Not possible to extend service information: Extension not bound.");
                 /* probably not bound */ 
                 string source = "Ninject";
                 string messageIExtension = "Error activating IExtension\r\nNo matching bindings are available, and the type is not self-bindable.";
@@ -129,7 +135,7 @@ namespace WindowsServiceInformationConsole
             if (RuntimeConstants.IsConfigOutputEnabled)
             {
                 // Try to save config files
-                Logger.Log(LogEintragTyp.Status, "Try to save config files ...");
+                Log.Info("Try to save config files ...");
                 try
                 {
                     // Handle possible config files
@@ -138,7 +144,7 @@ namespace WindowsServiceInformationConsole
                 }
                 catch (ActivationException ex)
                 {
-                    Logger.Log(LogEintragTyp.Hinweis, "Not possible to save configuration: ConfigHandler not bound.");
+                    Log.Info("Not possible to save configuration: ConfigHandler not bound.");
                     /* probably not bound */
                     string source = "Ninject";
                     string messageIExtension = "Error activating IExtension\r\nNo matching bindings are available, and the type is not self-bindable.";
@@ -154,12 +160,12 @@ namespace WindowsServiceInformationConsole
 
 
             // Normalize the service information
-            Logger.Log(LogEintragTyp.Hinweis, "Normalize output ...");
+            Log.Info("Normalize output ...");
             var normalizer = mainKernel.Get<IOutputNormalizer>();            
             var outputArray = normalizer.Normalize(services);
 
             // Output the service information
-            Logger.Log(LogEintragTyp.Hinweis, "Output ...");
+            Log.Info("Output ...");
             foreach (var output in mainKernel.GetAll<IOutput>())
             {
                 output.WriteOutput(outputArray);

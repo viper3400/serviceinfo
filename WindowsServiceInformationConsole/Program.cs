@@ -115,8 +115,7 @@ namespace WindowsServiceInformationConsole
                 extender.Extend(services);
 
                 // Handle possible config files
-                var configerHandler = mainKernel.Get<IConfigFileHandler>();
-                configerHandler.HandleConfigurationFiles(services);
+                HandleConfigurationFiles(mainKernel, services);
             }
             catch (ActivationException ex) 
             {
@@ -130,8 +129,23 @@ namespace WindowsServiceInformationConsole
                     // throw any other excpetion
                     throw ex;
                 }
-            }
+            }      
 
+            // Normalize the service information
+            Log.Info("Normalize output ...");
+            var normalizer = mainKernel.Get<IOutputNormalizer>();            
+            var outputArray = normalizer.Normalize(services);
+
+            // Output the service information
+            Log.Info("Output ...");
+            foreach (var output in mainKernel.GetAll<IOutput>())
+            {
+                output.WriteOutput(outputArray);
+            }
+        }
+
+        private static void HandleConfigurationFiles(IKernel mainKernel, List<WindowsServiceInfo> services)
+        {
             if (RuntimeConstants.IsConfigOutputEnabled)
             {
                 // Try to save config files
@@ -155,20 +169,6 @@ namespace WindowsServiceInformationConsole
                         throw ex;
                     }
                 }
-            }
-
-
-
-            // Normalize the service information
-            Log.Info("Normalize output ...");
-            var normalizer = mainKernel.Get<IOutputNormalizer>();            
-            var outputArray = normalizer.Normalize(services);
-
-            // Output the service information
-            Log.Info("Output ...");
-            foreach (var output in mainKernel.GetAll<IOutput>())
-            {
-                output.WriteOutput(outputArray);
             }
         }
     }
